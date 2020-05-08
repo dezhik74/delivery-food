@@ -21,7 +21,8 @@ const cartModalBody = document.querySelector ('.cart-modal-body');
 const modalPricetag = document.querySelector ('.modal-pricetag');
 const buttonClearCart = document.querySelector ('.clear-cart') 
 
-const cart = [];
+let cart = JSON.parse(localStorage.getItem('gloDeliveryCart'));
+if (cart === null) cart = [];
 
 let login = localStorage.getItem('gloDelivery');
 
@@ -54,10 +55,11 @@ function authorized () {
     cartButton.style.display = '';
     buttonOut.removeEventListener('click', logOut);
     localStorage.removeItem('gloDelivery');
+    localStorage.removeItem('gloDeliveryCart');
     checkAuth();
   }
   console.log('Авторизован');
-
+  
   userName.textContent = login;
   buttonAuth.style.display = 'none';
   userName.style.display = 'inline';
@@ -214,6 +216,8 @@ function addToCart (event) {
         count: 1
       });
     }
+    localStorage.setItem('gloDeliveryCart', JSON.stringify (cart));
+
   }
 }
 
@@ -238,6 +242,7 @@ function renderCart () {
     return result + parseFloat(item.cost) * item.count;
   }, 0);
   modalPricetag.textContent = totalPrice + " ₽";
+  localStorage.setItem('gloDeliveryCart', JSON.stringify (cart));
 }
 
 function changeCount (event) {
