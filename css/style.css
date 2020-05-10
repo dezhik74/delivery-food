@@ -375,7 +375,9 @@ button {
     align-items: center;
     justify-content: space-between;
 }
-
+.footer-logo {
+    cursor: pointer;
+}
 .footer-nav {
     margin-left: 35px;
     margin-right: auto;
